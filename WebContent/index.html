@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<title>Ajax Example</title>
+</head>
+<script type="text/javascript">	
+
+$(document).ready(function(){
+
+	   // jQuery methods go here...
+	$("#my_form").submit(function(event){
+	    event.preventDefault(); //prevent default action 
+	//ajax method starts here
+	    $.ajax({
+			  type: 'POST',
+			  url: "/AjaxExample/AddMessage",
+			  data: JSON.stringify({
+			    "name":document.getElementById("name").value ,
+			    "message":document.getElementById("message").value
+			  }),
+			  error: function(e) { 
+				  console.log(e);
+				document.getElementById("errorshow").innerHTML=
+			  		'<h2>Connection Lost!!!!!!!</h2>';
+			  },
+			  success:function(data){
+			  	//todo on success
+			  	if(data.databaseStatus===true){
+			  		$("#comment ul").append('<li>'+data.name+': '+data.message+' Database Status : '+data.databaseStatus+' </li>');	
+			  	}
+			  	else{
+			  		document.getElementById("errorshow").innerHTML=
+				  		'<h2>Could not be stored in database!!!!!!!</h2>';
+			  	}
+			  	
+			  },
+			  dataType: "json",
+			  contentType: "application/json"
+			});
+	    //ajax method ended
+	});
+	});
+</script>
+<body>
+<div id="comment">
+<h1>Messeges </h1>
+<ul>
+
+</ul>
+</div>
+<div id="errorshow" text-color="red"></div>
+<form id="my_form">
+    <label>Name</label>
+    <input type="text" name="name"  id="name"/>
+    
+    <label>Message</label>
+    <input type="text" name="message" id="message"/>
+    <input type="submit" name="submit" value="Submit Form" />
+     
+</form>
+
+
+</body>
+</html>

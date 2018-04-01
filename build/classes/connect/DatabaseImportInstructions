@@ -1,0 +1,126 @@
+How to import database in your system:
+Caution:Before performing these commands make sure that you have added system path variable
+C:\oraclexe\app\oracle\product\10.2.0\server\BIN
+
+=================================================
+Run SQL Command Line Code
++++++++++++++++++++++++++++++++++++++++++++++
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Aug 15 03:53:33 2017
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> connect System/alok789
+Connected.
+SQL> Create user mess_database_user identified by mess_database_user_password;
+
+User created.
+
+SQL> grant dba to mess_database_user;
+
+Grant succeeded.
+
+SQL>
++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+*************************************************
+=================================================
+cmd code
++++++++++++++++++++++++++++++++++++++++++++++
+Microsoft Windows [Version 10.0.15063]
+(c) 2017 Microsoft Corporation. All rights reserved.
+
+C:\Users\ALOK SHAKYA>cd C:\
+
+C:\>imp
+
+Import: Release 10.2.0.1.0 - Production on Tue Aug 15 03:56:45 2017
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+Username: mess_database_user
+Password:
+
+Connected to: Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+
+Import file: EXPDAT.DMP > D:\MessDatabase.dmp
+
+Enter insert buffer size (minimum is 8192) 30720> 8192
+
+Export file created by EXPORT:V10.02.01 via conventional path
+
+Warning: the objects were exported by MESS_DATABASE, not by you
+
+import done in WE8MSWIN1252 character set and AL16UTF16 NCHAR character set
+import server uses AL32UTF8 character set (possible charset conversion)
+List contents of import file only (yes/no): no > no
+
+Ignore create error due to object existence (yes/no): no > yes
+
+Import grants (yes/no): yes > yes
+
+Import table data (yes/no): yes > yes
+
+Import entire export file (yes/no): no > yes
+
+. importing MESS_DATABASE's objects into MESS_DATABASE_USER
+. . importing table                        "ADMIN"          2 rows imported
+. . importing table                         "BILL"          2 rows imported
+. . importing table                         "MENU"          7 rows imported
+. . importing table                 "USER_DETAILS"          2 rows imported
+Import terminated successfully without warnings.
+
+C:\>
++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+
+Explanation for the code
+
+Go to Oracle database application --> find Run SQL Command Line and run it
+You can run it by searching it and run it
+----------------------------------------------------
+Now run following commands to create user with the same name as given in ConnectionProvider.java
+inside src --> connect package
+
+now commands 
+1. connect System/alok789;
+(this command is to connect with system database login with system password 
+which you have provided at the time of installing oracle database
+In my case my admin username is 'System' and password is 'alok789' 
+(for oracle admin username is always system for everyone)
+
+2. create user mess_database_user identified by mess_database_user_password;
+
+3. grant dba to mess_database_user;
+-----------------------------------------------------------
+now your work on Run SQL Command Line has ended.
+
+go to directory C: drive
+type cmd in addressbar to open cmd in C:\>
+or you can run cmd from anywhere and set its directory to C:\
+by command cd C:\
+
+now run commands to import database from file=D:\MessDatabase.dmp
+put this MessDatabase.dmp file in D:\ or provide the path of file at the time of import
+
+type command in cmd setting directory to C:\ drive
+1.C:\> imp
+
+it will ask for username provide username which you have created from Run SQL 
+in this case username is mess_database_username type it there and press enter
+
+now it will ask for password provide password for this user which
+ is identified by 'mess_database_user_password'
+type it there and press enter
+
+now it will ask for dmp file location with name
+ type D:\MessDatabase.dmp
+ 
+ now it will ask for buffer size you can provide between 8192 to 30720 
+ type 8192 there and press enter
+ 
+ now it will ask that you want contents only
+ type no as we want table structure also.
+ 
+  now it will ask for 4 more confirmations type yes at each place
+  DONE!
+  now your database is ready now you can run your application with database
